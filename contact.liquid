@@ -1,0 +1,39 @@
+<div class="container contact">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-12 mt-5 page-header-content">
+            <h1 class="page-header">{% t "Contact Us" %}</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <section class="col-md-6 col-12">
+            <h2>{% t "Contact Form" %}</h2>
+            <p>{% t "Send us a message and we will reply to you as quick as possible." %}</p>
+            {{ contact_form }}
+        </section>
+
+        <section class="col-md-6 col-12">
+            <h2>{% t "Contact Information" %}</h2>
+            <ul id="contact-list">
+                <li>
+                    <i class="fa fa-paper-plane fa-fw"></i>
+                    <a href="mailto:{{ options.email }}">{{ options.email }}</a>
+                </li>
+                <li>
+                    <i class="fa fa-phone fa-fw"></i>
+                    <a href="tel:{{ options.phone | replace: ' ', ''}}">{{ options.phone }}</a>
+                </li>
+                {% if store.address != empty %}
+                    <li>
+                        <i class="fa fa-map-marker fa-fw"></i>
+                        {{ store.address }}</li>
+                {% endif %}
+            </ul>
+            {% if store.address != empty %}
+                <iframe frameborder="0" height="430" scrolling="no" src="https://maps.google.com/maps?q={{ store.address }},{{ store.city }},{{ store.region }},{{ store.country }}&t=&z=15&ie=UTF8&iwloc=&output=embed" style="border:0" width="100%"></iframe>
+            {% endif %}
+
+        </section>
+    </div>
+</div> 

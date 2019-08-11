@@ -1,0 +1,18 @@
+{
+  "Info": {
+    "name": "Simple",
+    "author": "Jumpseller",
+    "default_lang": "en"
+  },
+  "Menus": {
+    "main": {
+      "name": "Main Menu"
+    },
+    "blog": {
+      "name": "Blog Menu"
+    },
+    "footer": {
+      "name": "Footer Menu"
+    }
+  }
+}

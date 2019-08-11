@@ -1,0 +1,172 @@
+<div class="container customer mt-5">
+
+    <div class="row">
+        <div class="col-md-4 col-sm-5 col-12 sidebar">
+            <div class="row">
+                <div class="col-12">
+                    <div class="block mb-3">
+                        <h2>{% t 'Contact' %}</h2>
+                        <div class="block-inside">
+                            <div class="contact_info">
+                                {% if customer.name != blank %}
+                                    <p>
+                                        <label>{% t "Name" %}</label>
+                                        <strong>{{ customer.name }}</strong>
+                                    </p>
+                                {% endif %}
+                                <p>
+                                    <label>{% t "Email" %}</label>
+                                    {{customer.email}}</p>
+                                {% if customer.phone != blank %}
+                                    <p>
+                                        <label>{% t "Phone" %}</label>
+                                        {{ customer.phone }}</p>
+                                {% endif %}
+                                <a href="{{customer.edit_url}}" class="butn" title="{% t "Edit" %}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- CUSTOMER SHIPPING ADDRESS -->
+                <div class="col-12">
+                    <div class="block mb-3">
+                        <h2>{% t "Shipping Address" %}</h2>
+                        <div class="block-inside">
+                            <a class="add" href="{{customer.add_shipping_address_url}}">
+                                <i class="fa fa-plus"></i>
+                                {% t 'Add' %}</a>
+                            {% for shipping_address in customer.shipping_addresses %}
+                                <div class="shipping_address">
+                                    <p class="address">{{ shipping_address.formatted}}</p>
+                                    <a class="butn" href="{{ shipping_address.edit_url}}" title="{% t "Edit" %}" alt="{% t "Edit" %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    {% if shipping_address.default == false %}
+                                        <a class="butn" href="{{ shipping_address.set_primary_url}}" title="{% t "Make Primary" %}" alt="{% t "Make Primary" %}">
+                                            <i class="fa fa-star"></i>
+                                        </a>
+                                    {% endif %}
+                                    <a class="butn" href="{{ shipping_address.delete_url}}" title="{% t 'Delete' %}" alt="{% t 'Delete' %}">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CUSTOMER BILLING ADDRESS -->
+                <div class="col-12">
+                    <div class="block mb-3">
+                        <h2>{% t "Billing Address" %}</h2>
+                        <div class="block-inside">
+                            <a class="add" href="{{customer.add_billing_address_url}}">
+                                <i class="fa fa-plus"></i>
+                                {% t 'Add' %}</a>
+                            {% for billing_address in customer.billing_addresses %}
+                                <div class="billing_address">
+                                    <p class="address">{{ billing_address.formatted }}</p>
+                                    <a class="butn" href="{{ billing_address.edit_url}}" title="{% t 'Edit' %}" alt="{% t 'Edit' %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    {% if billing_address.default == false %}
+                                        <a class="butn" href="{{ billing_address.set_primary_url}}" title="{% t 'Make Primary' %}" alt="{% t 'Make Primary' %}">
+                                            <i class="fa fa-star"></i>
+                                        </a>
+                                    {% endif %}
+                                    <a class="butn" href="{{ billing_address.delete_url}}" title="{% t 'Delete' %}" alt="{% t 'Delete' %}">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-7 col-12">
+            <!-- CUSTOMER SUMMARY -->
+            <div id="customer-summary">
+                <h2>{% t "Previous Sales" %}</h2>
+                <!-- Customer Table // Large & Medium devices, like Desktop computers and Tablets -->
+                <div class="table-responsive" id="customer-order-table">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b>{% t "ID" %}</b>
+                                </th>
+                                <th>
+                                    <b>{% t "Date" %}</b>
+                                </th>
+                                <th></th>
+                                <th class="text-right">
+                                    <b>{% t "Subtotal" %}</b>
+                                </th>
+                                <th class="text-right">
+                                    <b>{% t "Total" %}</b>
+                                </th>
+                                <th class="text-right">
+                                    <b>{% t "Status" %}</b>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% if customer.orders.size == 0 %}
+                                <tr>
+                                    <td colspan="6">{% t "You have not made any purchases." %}</td>
+                                </tr>
+                            {% else %}
+                                {% for order in customer.orders %}
+                                    <tr>
+                                        <td>
+                                            <strong>#{{order.id}}</strong>
+                                        </td>
+                                        <td>{{order.date}}</td>
+                                        <td>
+                                            {% if order.shipping_required and order.sorder.shipping_address.city != '' and order.shipping_address.country != '' %}
+                                                {% t "Will be shipped to" %}
+                                                {{ order.shipping_address.city }},
+                                                {{ order.shipping_address.country }}
+                                            {% else %}
+                                                {% if order.shipping_required == false and order.status_id == 'Shipped' or order.status_id == 'Paid' %}
+                                                    {% t "Digital Products:" %}<br>
+                                                    {% for product in order.products %}
+                                                        {% if product.exists? %}
+                                                            {% if product.digital %}
+                                                                {% for att in product.attachments %}
+                                                                    <a class="product_digital" href="{{att['url']}}" target="_blank">{{att['name']}}</a><br>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right order-product-subtotal">{{order.subtotal | price }}</td>
+                                        <td class="text-right order-product-price">{{order.total | price }}</td>
+                                        <td class="text-right">
+                                            <span class="label radius {{ order.status_id | downcase | replace:' ','-' }}">
+                                                {{order.status}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div> 

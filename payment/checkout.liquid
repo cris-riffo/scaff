@@ -1,0 +1,192 @@
+<div class="container-fluid cart checkout">
+    <div class="container">
+        <!-- Page Heading -->
+              <!-- Checkout Container -->
+        <div class="checkout-container row">
+            <div class="col-lg-8 col-12 pt-5 pb-5">
+                <div class="cart-header">
+                    <a href="{{store.url}}" title="{{store.name}}" class="logo">
+                        {% if store.logo != empty %}
+                            <img src="{{store.logo}}" class="store-image" alt="{{store.name}}"/>
+                        {% else %}
+                            {% if template == 'home' %}
+                                <div class="navbar-brand">
+                                    <span class="text-logo">{{store.name}}</span>
+                                </div>
+                            {% else %}
+                                <span class="navbar-brand">{{store.name}}</span>
+                            {% endif %}
+                        {% endif %}
+                    </a>
+                    <div class="cart-steps">
+                        <div>
+                            <a href="{{store.url}}/cart" title="{% t "Cart" %}">{% t "Cart" %}</a>
+                        </div>
+                        <span class="bullet"><img src="{{ 'bullet.png' | asset }}"></span>
+                        <div class="active">{% t "Checkout" %}</div>
+                        <span class="bullet"><img src="{{ 'bullet.png' | asset }}"></span>
+                        <div>{% t "Order review" %}</div>
+                        <span class="bullet"><img src="{{ 'bullet.png' | asset }}"></span>
+                        <div>{% t "Success" %}</div>
+                    </div>
+                </div>
+                <h1>{% t "Customer information" %}</h1>
+                {{checkout_form}}
+                {% if options.currencies != blank %}
+
+                    {% assign store_currency = store.currency_code %}
+                    <p style="text-align: center; font-size: smaller; font-style: italic;">
+                        {% t "Payment will be processed in %{store_currency} at the current exchange rate" | store_currency: {{store_currency}} %}
+                    </p>
+                {% endif %}
+            </div>
+            <div class="col-lg-4 col-12 sidebar hidden-sm-down">
+                <div class="cart-totals">
+                    <h2>{% t "Order review" %}</h2>
+                    <table class="table products">
+                        {% for product in order.products %}
+                            <tr>
+                                <td class="text-left" colspan="1">
+                                    <a href="{{ product.url }}" class="trsn" title="{{product.name}}">
+                                        {% if product.images.size > 0 %}
+                                            <img src="{{ product.images.first | resize: '50x50'}}" alt="{{product.name}}" title="{{product.name}}">
+                                        {% else %}
+                                            <img src="{{ 'no-image-cart.png' | asset }}" alt="{{product.name}}">
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    {% if product.options.size > 0 %}
+                                        <h3>{{product.name}}</h3>
+                                        {% for option in product.options %}
+                                            <span>{{option.name}}:
+                                                {{option.value}}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <h3>
+                                            {{product.name}}
+                                        </h3>
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-right" colspan="1">
+                                    <span class="order-product-subtotal">{{product.qty}}
+                                        x
+                                        <span class="prod-value">{{ product.discount | times: product.qty | times: '-1' | plus: product.subtotal | price }}</span>
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <table class="table review">
+                        {% if order.subtotal %}
+                            <tr class="totals">
+                                <td class="text-left" colspan="1">{% t "Subtotal" %}</td>
+                                <td class="text-right" colspan="1">{{order.subtotal | price }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <!-- {% if order.shipping > 0 %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Shipping" %}</td>
+                <td colspan="1" class="text-right">{{order.shipping | price }}</td>
+              </tr>
+              {% endif %}
+  
+              {% if order.tax > 0 %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Tax" %}</td>
+                <td colspan="1" class="text-right">{{order.tax | price }}</td>
+              </tr>
+              {% endif %}
+  
+              {% if order.discount > 0 %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Discount" %}</td>
+                <td colspan="1" class="text-right">-{{order.discount | price }}</td>
+              </tr>
+              {% endif %}
+  
+              <tr class="totals key">
+                <td colspan="1" class="text-left"><strong>{% t "Total" %}</strong></td>
+                <td colspan="1" class="text-right"><strong>{{order.total | price }}</strong></td>
+              </tr> -->
+
+                    </table>
+
+                    <div class="cart-actions text-center">
+                        <input type="submit" value="{% t 'Review order' %}" class="button butn blue" id="submit_review_order_2">
+
+                        <a href="{{store.url}}" class="continue" title="&larr; {% t 'Continue Shopping' %}">&larr;
+                            {% t 'Continue Shopping' %}</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("submit_review_order_2").addEventListener("click", function () {
+    document.getElementById("submit_review_order").click();
+    });
+  </script>
+
+<!-- Estimate shipping values on the checkout page -->
+<script>
+    function cleanEstimates(){
+      // remove all prices and errors
+        $('#shipping_options li').each(function(){ $(this).children().last().detach(); });
+  
+          // add empty messages - placeholders
+      $('#shipping_options li').each(function(){ $(this).append('<span></span>') });
+    }
+  
+    function shippingEstimates(){
+      if($('#order_shipping_address_country').val() != "" && $('#order_shipping_address_region').val() != ""){
+        $.ajax({
+          method: "POST",
+          url: "/checkout/shipping_estimate",
+          data: {
+            estimate: {
+              country: $('#order_shipping_address_country').val(),
+              region: $('#order_shipping_address_region').val(),
+              municipality: $('#order_shipping_address_municipality').val(),
+              postal: $('#order_shipping_address_postal') .val()
+            }
+          }
+        }).done(function( data ) {
+            for(var i = 0; i < data.length; i++){
+              // remove any previous messages & placeholders
+              $('#shipping_options #order_shipping_method_' + data[i].table.id).parent().children().last().detach();
+  
+              if(data[i].table.error){
+                // disable options with errors
+                $('#shipping_options #order_shipping_method_' + data[i].table.id).attr('disabled', 'disabled');
+  
+                // add error messages
+                $('#shipping_options #order_shipping_method_' + data[i].table.id).parent().append("<p class='shipping_information'><i>" + data[i].table.error_message + "</i></p>")
+              } else {
+                // enable options
+                $('#shipping_options #order_shipping_method_' + data[i].table.id).attr('disabled', false);
+  
+                // add formatted shipping prices
+                $('#shipping_options #order_shipping_method_' + data[i].table.id).parent().append("<p class='shipping_information'><i>" + data[i].table.price + "</i></p>")
+              }
+            }
+          });
+      } else {
+        // no Country or Region filled, clear shipping estimate info
+        cleanEstimates();
+      }
+    }
+  
+    $('#order_shipping_address_country').change(function(){shippingEstimates()});
+    $('#order_shipping_address_region').change(function(){shippingEstimates()});
+    $('#order_shipping_address_municipality').change(function(){shippingEstimates()});
+    $(document).ready(function(){
+      // add empty messages - placeholders
+      $('#shipping_options li').each(function(){ $(this).append('<span></span>') });
+        shippingEstimates();
+    })
+  </script> 

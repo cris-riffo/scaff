@@ -1,0 +1,58 @@
+<!-- Page Content -->
+<div class="container blog blog-post">
+
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 col-12 page">
+            <div class="row">
+                <div class="col-12 mt-5 page-header-content mb-0">
+                    <h1 class="page-header">{{page.title}}</h1>
+                </div>
+                <div class="col-12 date">{{page.date | date: "%d | %m | %Y"}}</div>
+            </div>
+            {% if page.images.size == 0 %}
+                <img class="img-fluid" src="http://placehold.it/730x400" alt="{{ page.title }}">
+            {% else %}
+                <img class="img-fluid" src="{{ page.images.first }}" alt="{{ page.title }}"/>
+            {% endif %}
+            <div class="page-body">{{page.body}}</div>
+
+        </div>
+
+        <!-- Blog Sidebar Widgets Column -->
+        <div class="col-md-4 mt-5">
+            <!-- Blog menu -->
+            {% if menu.blog.items != empty %}
+                <div class="mb-3">
+                    <div class="">
+                        <h4>{% t 'Featured Articles' %}</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for item in menu.blog.items %}
+                            <li class="list-group-item">
+                                <a href="{{ item.url }}" title="{{item.name}}">{{ item.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- /.row -->
+                </div>
+            {% endif %}
+
+            <!-- Side Widget blog -->
+            {% if options.widget_blog_text != empty %}
+                <div class="mb-3">
+                    <div class="">
+                        <h4>{{ options.widget_blog_title }}</h4>
+                    </div>
+                    <div class="">
+                        <p>{{ options.widget_blog_text }}</p>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container --> 

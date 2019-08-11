@@ -1,0 +1,838 @@
+{
+  "Opciones de tienda": {
+    "icon": "cog",
+    "options": {
+      "product_stock_visibility": {
+        "name": "Mostrar stock en la página del producto",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "product_sku_visibility": {
+        "name": "Sku en la página del producto",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "related_products_visibility": {
+        "name": "Productos relacionados en la página del producto",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "estimate_shipping_visibility": {
+        "name": "Estimar el envío en la página del carro",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "success_page_product_table": {
+        "name": "Tabla de productos en la página de éxito",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "home_page_blog": {
+        "name": "Mostrar publicaciones de blog en la página de inicio",
+        "type": "checkbox",
+        "default": "1"
+      },
+      "full-width-header": {
+        "name": "Mostrar encabezado al ancho total",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "vertical-menu": {
+        "name": "Mostrar el Menu Principal Vertical",
+        "type": "checkbox",
+        "default": "1"
+      },
+      "products_home_limit": {
+        "name": "Últimos productos en la página de inicio",
+        "type": "select",
+        "default": "4",
+        "options": [
+          {
+            "4": "4"
+          },
+          {
+            "8": "8"
+          },
+          {
+            "12": "12"
+          },
+          {
+            "16": "16"
+          },
+          {
+            "20": "20"
+          },
+          {
+            "24": "24"
+          },
+          {
+            "28": "28"
+          },
+          {
+            "32": "32"
+          },
+          {
+            "36": "36"
+          }
+        ]
+      },
+      "products_featured_limit": {
+        "name": "Productos destacados en la página de inicio",
+        "type": "select",
+        "default": "8",
+        "options": [
+          {
+            "4": "4"
+          },
+          {
+            "8": "8"
+          },
+          {
+            "12": "12"
+          },
+          {
+            "16": "16"
+          },
+          {
+            "20": "20"
+          },
+          {
+            "24": "24"
+          },
+          {
+            "28": "28"
+          },
+          {
+            "32": "32"
+          },
+          {
+            "36": "36"
+          }
+        ]
+      },
+      "products_category_limit": {
+        "name": "Categoría Productos por página",
+        "type": "select",
+        "default": "12",
+        "options": [
+          {
+            "4": "4"
+          },
+          {
+            "8": "8"
+          },
+          {
+            "12": "12"
+          },
+          {
+            "16": "16"
+          },
+          {
+            "20": "20"
+          },
+          {
+            "24": "24"
+          },
+          {
+            "28": "28"
+          },
+          {
+            "32": "32"
+          },
+          {
+            "36": "36"
+          }
+        ]
+      },
+      "products_search_limit": {
+        "name": "Buscar productos por página",
+        "type": "select",
+        "default": "12",
+        "options": [
+          {
+            "4": "4"
+          },
+          {
+            "8": "8"
+          },
+          {
+            "12": "12"
+          },
+          {
+            "16": "16"
+          },
+          {
+            "20": "20"
+          },
+          {
+            "24": "24"
+          },
+          {
+            "28": "28"
+          },
+          {
+            "32": "32"
+          },
+          {
+            "36": "36"
+          }
+        ]
+      },
+      "page_post_per_page": {
+        "name": "Publicaciones de blog por página",
+        "type": "select",
+        "default": "6",
+        "options": [
+          {
+            "3": "3"
+          },
+          {
+            "6": "6"
+          },
+          {
+            "9": "9"
+          },
+          {
+            "12": "12"
+          },
+          {
+            "15": "15"
+          },
+          {
+            "18": "18"
+          },
+          {
+            "21": "21"
+          },
+          {
+            "24": "24"
+          },
+          {
+            "27": "27"
+          },
+          {
+            "30": "30"
+          }
+        ]
+      },
+      "fixed_header": {
+        "name": "Encabezado Fijo",
+        "type": "select",
+        "default": "Top Bar",
+        "options": [
+          {
+            "Top Bar": "Top Bar"
+          },
+          {
+            "Menu": "Menu"
+          },
+          {
+            "None": "None"
+          }
+        ]
+      }
+    }
+  },
+  "Información de la tienda": {
+    "icon": "info-circle",
+    "options": {
+      "email": {
+        "name": "Email de contacto",
+        "type": "input",
+        "default": "mauro@scaff.cl"
+      },
+      "phone": {
+        "name": "Teléfono de contacto",
+        "type": "input",
+        "default": "+56979886535"
+      },
+      "whatsapp_phone": {
+        "name": "Contacto de Whatsapp (solo números)",
+        "type": "input",
+        "default": "+56979886535"
+      }
+    }
+  },
+  "Barra superior": {
+    "icon": "window-maximize",
+    "options": {
+      "top-bar": {
+        "name": "Texto de la barra superior",
+        "type": "text",
+        "default": "Todo para tu piscina a precios insuperables  |  Larrain 5991 (frente al Mall Plaza Egaña) | mauro@scaff.cl | +56979886535\n"
+      },
+      "currencies": {
+        "name": "Monedas (por ejemplo, USD, EUR)",
+        "type": "input",
+        "default": ""
+      },
+      "open_exchange_rates_token": {
+        "name": "ID de la aplicación OpenExchangeRates",
+        "type": "input",
+        "default": ""
+      }
+    }
+  },
+  "Slider de la página de inicio": {
+    "icon": "image",
+    "options": {
+      "no_text_slider": {
+        "name": "Slider sin texto",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "slider-1": {
+        "name": "Slide 1 Imagen",
+        "type": "file",
+        "default": ""
+      },
+      "title-slider-1": {
+        "name": "Slide 1 Título",
+        "type": "input",
+        "default": ""
+      },
+      "button-link-slider-1": {
+        "name": "Slide 1  Link del botón ",
+        "type": "input",
+        "default": ""
+      },
+      "text-button-slider-1": {
+        "name": "Slide 1 Texto del botón",
+        "type": "input",
+        "default": ""
+      },
+      "slider-2": {
+        "name": "Slide 2 Imagen",
+        "type": "file",
+        "default": ""
+      },
+      "title-slider-2": {
+        "name": "Slide 2 Título",
+        "type": "input",
+        "default": ""
+      },
+      "button-link-slider-2": {
+        "name": "Slide 2 Link del botón",
+        "type": "input",
+        "default": ""
+      },
+      "text-button-slider-2": {
+        "name": "Slide 2 Texto del botón",
+        "type": "input",
+        "default": ""
+      },
+      "slider-3": {
+        "name": "Slide 3 Imagen",
+        "type": "file",
+        "default": ""
+      },
+      "title-slider-3": {
+        "name": "Slide 3 Título",
+        "type": "input",
+        "default": ""
+      },
+      "button-link-slider-3": {
+        "name": "Slide 3 link del botón",
+        "type": "input",
+        "default": ""
+      },
+      "text-button-slider-3": {
+        "name": "Slide 3 Texto del botón",
+        "type": "input",
+        "default": ""
+      }
+    }
+  },
+  "Banners Inicio": {
+    "icon": "image",
+    "options": {
+      "home_page_banners": {
+        "name": "Mostrar área del banner en la página de inicio",
+        "type": "checkbox",
+        "default": "1"
+      },
+      "banner-1": {
+        "name": "Imagen de Banner 1",
+        "type": "file",
+        "default": ""
+      },
+      "title-banner-1": {
+        "name": "Título de Banner 1",
+        "type": "input",
+        "default": "Bombas y filtros"
+      },
+      "link-banner-1": {
+        "name": "Link de Banner 1 ",
+        "type": "input",
+        "default": "https://scaff.cl/bombas-y-filtros"
+      },
+      "banner-2": {
+        "name": "Imagen de Banner 2",
+        "type": "file",
+        "default": ""
+      },
+      "title-banner-2": {
+        "name": "Título de Banner 2",
+        "type": "input",
+        "default": "Accesorios piscina"
+      },
+      "link-banner-2": {
+        "name": "Link de Banner 2",
+        "type": "input",
+        "default": "https://scaff.cl/accesorios-piscina"
+      },
+      "banner-3": {
+        "name": "Imagen de Banner 3",
+        "type": "file",
+        "default": ""
+      },
+      "title-banner-3": {
+        "name": "Título de Banner 3",
+        "type": "input",
+        "default": "Pinturas y Revestimientos"
+      },
+      "link-banner-3": {
+        "name": "Link de Banner 3",
+        "type": "input",
+        "default": "https://scaff.cl/pinturas-y-revestimientos"
+      },
+      "banner-4": {
+        "name": "Imagen de Banner 4",
+        "type": "file",
+        "default": ""
+      },
+      "title-banner-4": {
+        "name": "Título de Banner 4",
+        "type": "input",
+        "default": "Tuberías y válvulas"
+      },
+      "link-banner-4": {
+        "name": "Link de Banner 4",
+        "type": "input",
+        "default": "https://scaff.cl/tuberias"
+      }
+    }
+  },
+  "Colores": {
+    "icon": "tint",
+    "options": {
+      "primary_color": {
+        "name": "Color primario",
+        "type": "color",
+        "default": "3280fe"
+      },
+      "store_background": {
+        "name": "Fondo de la Tienda",
+        "type": "color",
+        "default": "ffffff"
+      }
+    }
+  },
+  "Fuentes": {
+    "icon": "font",
+    "options": {
+      "general_font": {
+        "name": "General",
+        "type": "select",
+        "default": "Roboto Condensed",
+        "options": [
+          {
+            "Droid Serif": "Droid Serif"
+          },
+          {
+            "Gentium Basic": "Gentium Basic"
+          },
+          {
+            "Lato": "Lato"
+          },
+          {
+            "Montserrat": "Montserrat"
+          },
+          {
+            "Noto Sans": "Noto Sans"
+          },
+          {
+            "Open Sans": "Open Sans"
+          },
+          {
+            "Playfair Display": "Playfair Display"
+          },
+          {
+            "Quicksand": "Quicksand"
+          },
+          {
+            "Raleway": "Raleway"
+          },
+          {
+            "Roboto": "Roboto"
+          },
+          {
+            "Roboto Slab": "Roboto Slab"
+          },
+          {
+            "Roboto Condensed (by Default)": "Roboto Condensed"
+          }
+        ]
+      },
+      "titles_font": {
+        "name": "Títulos",
+        "type": "select",
+        "default": "Montserrat",
+        "options": [
+          {
+            "Abril Fatface": "Abril Fatface"
+          },
+          {
+            "Architects Daughter": "Architects Daughter"
+          },
+          {
+            "Fredericka the Great": "Fredericka the Great"
+          },
+          {
+            "Glegoo": "Glegoo"
+          },
+          {
+            "Handlee": "Handlee"
+          },
+          {
+            "Josefin Slab": "Josefin Slab"
+          },
+          {
+            "Julius Sans One": "Julius Sans One"
+          },
+          {
+            "Lato": "Lato"
+          },
+          {
+            "Libre Baskerville": "Libre Baskerville"
+          },
+          {
+            "Montserrat (by Default)": "Montserrat"
+          },
+          {
+            "Open Sans": "Open Sans"
+          },
+          {
+            "Philosopher": "Philosopher"
+          },
+          {
+            "Poiret One": "Poiret One"
+          },
+          {
+            "Roboto": "Roboto"
+          },
+          {
+            "Special Elite": "Special Elite"
+          }
+        ]
+      },
+      "store_name": {
+        "name": "Nombre de la tienda",
+        "type": "select",
+        "default": "Montserrat",
+        "options": [
+          {
+            "Abril Fatface": "Abril Fatface"
+          },
+          {
+            "Architects Daughter": "Architects Daughter"
+          },
+          {
+            "Fredericka the Great": "Fredericka the Great"
+          },
+          {
+            "Libre Baskerville": "Libre Baskerville"
+          },
+          {
+            "Montserrat (by Default)": "Montserrat"
+          },
+          {
+            "Open Sans": "Open Sans"
+          },
+          {
+            "Playfair Display": "Playfair Display"
+          },
+          {
+            "Poiret One": "Poiret One"
+          },
+          {
+            "Raleway": "Raleway"
+          },
+          {
+            "Roboto": "Roboto"
+          },
+          {
+            "Old Standard TT": "Old Standard TT"
+          },
+          {
+            "Yatra One": "Yatra One"
+          }
+        ]
+      },
+      "general_font_size": {
+        "name": "Tamaño de fuente general",
+        "type": "select",
+        "default": "16px",
+        "options": [
+          {
+            "10px": "10px"
+          },
+          {
+            "11px": "11px"
+          },
+          {
+            "12px": "12px"
+          },
+          {
+            "13px": "13px"
+          },
+          {
+            "14px": "14px"
+          },
+          {
+            "15px": "15px"
+          },
+          {
+            "16px (by Default)": "16px"
+          },
+          {
+            "17px": "17px"
+          },
+          {
+            "18px": "18px"
+          }
+        ]
+      },
+      "title_font_size": {
+        "name": "Tamaño de letra del título",
+        "type": "select",
+        "default": "16px",
+        "options": [
+          {
+            "12px": "12px"
+          },
+          {
+            "14px": "14px"
+          },
+          {
+            "16px": "16px"
+          },
+          {
+            "18px": "18px"
+          },
+          {
+            "20px": "20px"
+          },
+          {
+            "22px": "22px"
+          },
+          {
+            "24px": "24px"
+          },
+          {
+            "26px": "26px"
+          },
+          {
+            "28px": "28px"
+          },
+          {
+            "30px (by Default)": "30px"
+          },
+          {
+            "32px": "32px"
+          },
+          {
+            "34px": "34px"
+          },
+          {
+            "36px": "36px"
+          },
+          {
+            "38px": "38px"
+          },
+          {
+            "40px": "40px"
+          }
+        ]
+      },
+      "store_name_font_size": {
+        "name": " Tamaño de la fuente en el Nombre de la tienda",
+        "type": "select",
+        "default": "40px",
+        "options": [
+          {
+            "14px": "14px"
+          },
+          {
+            "15px": "15px"
+          },
+          {
+            "16px": "16px"
+          },
+          {
+            "17px": "17px"
+          },
+          {
+            "18px": "18px"
+          },
+          {
+            "20px": "20px"
+          },
+          {
+            "22px": "22px"
+          },
+          {
+            "24px": "24px"
+          },
+          {
+            "26px": "26px"
+          },
+          {
+            "28px": "28px"
+          },
+          {
+            "30px": "30px"
+          },
+          {
+            "32px": "32px"
+          },
+          {
+            "34px": "34px"
+          },
+          {
+            "36px": "36px"
+          },
+          {
+            "38px": "38px"
+          },
+          {
+            "40px (by Default)": "40px"
+          }
+        ]
+      },
+      "menu_font_size": {
+        "name": "Tamaño de fuente del menú",
+        "type": "select",
+        "default": "16px",
+        "options": [
+          {
+            "10px": "10px"
+          },
+          {
+            "11px": "11px"
+          },
+          {
+            "12px": "12px"
+          },
+          {
+            "13px": "13px"
+          },
+          {
+            "14px": "14px"
+          },
+          {
+            "15px": "15px"
+          },
+          {
+            "16px (by Default)": "16px"
+          },
+          {
+            "17px": "17px"
+          },
+          {
+            "18px": "18px"
+          },
+          {
+            "20px": "20px"
+          }
+        ]
+      }
+    }
+  },
+  "Redes sociales": {
+    "icon": "share-alt",
+    "options": {
+      "facebook_button_on_products": {
+        "name": "Botón de Facebook en productos",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "twitter_button_on_products": {
+        "name": "Botón de Twitter en productos",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "google_button_on_products": {
+        "name": "Botón de Google+ en productos",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "pinterest_button_on_products": {
+        "name": "Botón de Pinterest en productos",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "tumblr_button_on_products": {
+        "name": "Botón Tumblr en productos",
+        "type": "checkbox",
+        "default": "0"
+      },
+      "whatsapp_button_on_products": {
+        "name": "Botón de Whatsapp en productos en dispositivos móviles",
+        "type": "checkbox",
+        "default": "1"
+      },
+      "instafeed": {
+        "name": "Mostrar feed de Instagram en la página de inicio",
+        "type": "checkbox",
+        "default": "1"
+      },
+      "instagram-username": {
+        "name": "Nombre de usuario de Instagram",
+        "type": "input",
+        "default": "scaffpiscinas"
+      },
+      "instagram-limit": {
+        "name": "Numero de Fotos de Instagram",
+        "type": "select",
+        "default": "6",
+        "options": [
+          {
+            "6": "6"
+          },
+          {
+            "12": "12"
+          },
+          {
+            "18": "18"
+          }
+        ]
+      }
+    }
+  },
+  "Otras Opciones": {
+    "icon": "cogs",
+    "options": {
+      "favicon": {
+        "name": "Favicon",
+        "type": "file",
+        "default": ""
+      },
+      "widget_blog_title": {
+        "name": "Título del widget del blog ",
+        "type": "input",
+        "default": "Side Widget Blog"
+      },
+      "widget_blog_text": {
+        "name": "Texto del Widget del blog",
+        "type": "text",
+        "default": ""
+      },
+      "new_customer_message": {
+        "name": "Mensaje para clientes nuevos",
+        "type": "text",
+        "default": ""
+      }
+    }
+  }
+}

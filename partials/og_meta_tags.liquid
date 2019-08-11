@@ -1,0 +1,56 @@
+<!-- Facebook Meta tags for Product -->
+<meta content="283643215104248" property="fb:app_id"/>
+{% if template == 'product' %}
+    <meta property="og:title" content="{{product.name}}"/>
+    <meta content="product" property="og:type"/>
+    {% for image in product.images %}
+        <meta property="og:image" content="{{image | resize: '1200x1200'}}"/>
+    {% endfor %}
+    {% if product.brand != blank %}
+        <meta property="og:brand" content="{{product.brand}}"/>
+    {% endif %}
+    <meta content="1" property="product:is_product_shareable"/>
+    <meta property="product:original_price:amount" content="{{product.price}}"/>
+    <meta property="product:original_price:currency" content="{{store.currency_code}}"/>
+    <meta property="product:price:amount" content="{{product.price | minus:product.discount}}"/>
+    <meta property="product:price:currency" content="{{store.currency_code}}"/>
+    {% if product.stock == 0 and product.stock_unlimited == false %}
+        <meta content="oos" property="product:availability"/>
+    {% elsif product.status == 'not-available' %}
+        <meta content="pending" property="product:availability"/>
+    {% else %}
+        <meta content="instock" property="product:availability"/>
+    {% endif %}
+{% elsif template == 'page' %}
+    <meta property="og:title" content="{{page.title}}"/>
+    <meta content="article" property="og:type"/>
+    {% for image in page.images %}
+        <meta property="og:image" content="{{image | resize: '1200x1200'}}"/>
+    {% endfor %}
+{% elsif template == 'category' %}
+    <meta property="og:title" content="{{category.name}}"/>
+    <meta content="website" property="og:type"/>
+    {% if category.images == empty %}
+        {% for products in category.products %}
+            {% assign image = products.images.first %}
+            {% if image != blank %}
+                <meta property="og:image" content="{{image | resize: '1200x1200' }}"/>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for image in category.images %}
+            <meta property="og:image" content="{{image | resize: '1200x1200' }}"/>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <meta property="og:title" content="{{store.name}}"/>
+    <meta content="website" property="og:type"/>
+{% endif %}
+<meta property="og:image" content="{{ store.logo }}"/>
+<meta property="og:description" content="{{ meta_description }}"/>
+<meta property="og:url" content="{{store.url}}{{current_url}}"/>
+<meta property="og:site_name" content="{{store.name}}"/>
+<meta content="summary" name="twitter:card"/>
+{% for language in languages %}
+    <meta property="og:locale{% if forloop.first != true %}:alternate{% endif %}" content="{{language.locale}}"/>
+{% endfor %}

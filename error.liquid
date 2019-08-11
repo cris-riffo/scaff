@@ -1,0 +1,27 @@
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-12 mt-5 page-header-content">
+            <h1 class="page-header">{{error.title}}</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <section class="col-md-6 offset-md-3 col-12 text-center">
+            <div class="alert bg-danger text-white" role="alert">
+                <p>{{error.message}}</p>
+                <p>{% t "Try searching" %}
+                    {% t "again or keep shopping by clicking on the button below" %}</p>
+            </div>
+            <div class="text-center page-actions">
+                {% if error.link == blank %}
+                    <a class="butn" href="#" onclick="history.go(-1); return false;" title="&larr; {% t 'Go back & Keep Shopping' %}">&larr;
+                        {% t "Go back & Keep Shopping" %}</a>
+                {% else %}
+                    <a href="{{ error.link }}" class="butn" title="&larr; {% t 'Go back & Keep Shopping' %}">&larr;
+                        {% t "Go back & Keep Shopping" %}</a>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</div> 

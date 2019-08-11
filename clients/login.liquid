@@ -1,0 +1,32 @@
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row mb-4">
+        <div class="col-12 mt-5 page-header-content">
+            <h1 class="page-header">{% t 'Login to' %}
+                {{store.name}}</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-12">
+            <div class="block mb-4">
+                <div class="block-inside">
+                    {{login_form}}
+                </div>
+            </div>
+            <div class="block text-center">
+                <h2>{% t 'Are you new at' %}
+                    {{store.name}}?</h2>
+                <div class="block-inside">
+                    <p>{{ options.new_customer_message }}</p>
+                    <a href="{{customer_registration_url}}" class="butn" title="{% t 'Register as Customer' %}">
+                        {% t 'Sign Up' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div> 

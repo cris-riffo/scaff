@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="{{ languages.first.locale }}" xmlns="http://www.w3.org/1999/xhtml">
+    <!--<![endif]-->
+
+    <head>
+        <title>{{page_title}}</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+        <meta name="description" content="{{meta_description}}"/>
+        <meta content="follow, all" name="robots"/>
+
+        <!-- Set the viewport width to device width for mobile -->
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+
+        {% include 'og_meta_tags' %}
+
+        {% if languages.size > 1 %}
+            {% for language in languages %}
+                <link rel="alternate" hreflang="{{language.locale}}" href="{{language.url}}"/>
+            {% endfor %}
+        {% endif %}
+
+        <link rel="canonical" href="{{store.url}}{{current_url}}">
+
+        <link rel="icon" href="{% if options.favicon != empty %} {{ options.favicon }} {% else %} {{"favicon.png" | asset }} {% endif%}">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126647972-1"></script>
+        <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-126647972-1'); </script>
+        <script src="//code.jquery.com/jquery-3.1.1.js"></script>
+        {% if template == "home" %}
+            <script data-require="jquery@3.0.0" data-semver="3.0.0" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
+        {% endif %}
+
+        <!-- Bootstrap Core -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="//cdn.jsdelivr.net/bootstrap.filestyle/1.1.0/js/bootstrap-filestyle.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <script src="{{'jquery.flexslider-min.js' | asset }}"></script>
+        <link rel="stylesheet" href="{{'flexslider.css' | asset }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ 'app.css' | asset }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ 'color_pickers.css' | asset }}"/>
+        {% include 'fonts'%}
+
+        <script src="//www.powr.io/powr.js?external-type=jumpseller"></script>
+
+        <!-- Script to Activate the Carousel -->
+        <script>
+      $('.carousel').carousel()
+    </script>
+
+        <!-- Script to Dropdown -->
+        <script>
+      $('.float-right .dropdown').click(function(){
+        $(this).toggleClass('show');
+      });
+    </script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+        {% if template == 'cart' or template == 'checkout' or template == 'revieworder' or template == 'success' %}
+
+            {% else %}
+                <!-- Fixed Top Bar -->
+                <div class="{% if options.fixed_header == "Top Bar" and options.fixed_header != "None" %}fixed-top{% endif %} nav-bar message-top">
+                    <div class="{% if options.full-width-header %} container-fluid {% else %} container {% endif %}">
+                        <div class="float-left">
+                            {{ options.top-bar }}
+                        </div>
+
+                        <div class="float-right">
+
+                            <ul class="social navbar-toggler-right list-inline">
+                                {% if social.facebook_url != blank %}
+                                    <li class="list-inline-item">
+                                        <a href="{{social.facebook_url}}" class="trsn" title="{% t 'Go to' %} Facebook" target="_blank">
+                                            <i class="fa fa-facebook fa-fw"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% if social.twitter_url != blank %}
+                                    <li class="list-inline-item">
+                                        <a href="{{social.twitter_url}}" class="trsn" title="{% t 'Go to' %} Twitter" target="_blank">
+                                            <i class="fa fa-twitter fa-fw"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% if social.pinterest_url != blank %}
+                                    <li class="list-inline-item">
+                                        <a href="{{social.pinterest_url}}" class="trsn" title="{% t 'Go to' %} Pinterest" target="_blank">
+                                            <i class="fa fa-pinterest fa-fw"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if social.instagram_url != blank %}
+                                    <li class="list-inline-item">
+                                        <a href="{{social.instagram_url}}" class="trsn" title="{% t 'Go to' %} Instagram" target="_blank">
+                                            <i class="fa fa-instagram fa-fw"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if social.whatsapp_url != blank %}
+                                    <li class="list-inline-item">
+                                        <a href="{{ social.whatsapp_url }}&text={% t 'Hello'%}%20{{store.name}}" class="trsn" title="WhatsApp" target="_blank">
+                                            <i class="fa fa-whatsapp fa-fw"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+
+                            <!-- Languages -->
+                            {% if languages.size > 1 %}
+                                <div class="dropdown">
+                                    {% for language in languages %}
+                                        {% if languages.first.code == language.code %}
+                                            <div aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" id="langMenuButton" role="button">
+                                                {{ language.code }}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div aria-labelledby="langMenuButton" class="dropdown-menu">
+                                        {% for language in languages %}
+                                            <a href="{{language.url}}" class="trsn nav-link" title="{{language.name}}">{{ language.code }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Currencies -->
+                            {% if options.currencies != blank %}
+                                <div class="dropdown">
+                                    <div aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" id="currencyMenuButton" role="button">
+                                        <span id="current_currency">{{store.currency_code}}</span>
+                                    </div>
+                                    <div aria-labelledby="currencyMenuButton" class="dropdown-menu">
+                                        <a href="#" onclick="Jumpseller.setCurrency('{{store.currency_code}}');" class="dropdown-item" title="{{store.currency_code}}">{{store.currency_code}}</a>
+                                        {% assign store_currencies = options.currencies | split: ',' %}
+                                        {% for currency in store_currencies %}
+                                            <a href="#" onclick="Jumpseller.setCurrency('{{currency}}');" class="dropdown-item" title="{{currency}}">{{currency}}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="{% if options.full-width-header %} container-fluid {% else %} container {% endif %} header-block-2">
+                    <div class="row align-items-center no-gutters">
+                        <!-- Search -->
+                        <div class="col-md-4 col-2">
+                            <form id="search_mini_form" class="navbar-form form-inline hidden-md-down" method="get" action="{{search.url_send}}">
+                                <input type="text" value="{{search.query}}" name="q" class="form-text" onfocus="javascript:this.value=''" placeholder="{% t 'Search for products' %}"/>
+                                <button type="submit">
+                                    <i class="fa fa-search fa-fw"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <!-- Logo -->
+                        <div class="col-md-4 col-8 text-center">
+                            <a href="{{store.url}}" title="{{store.name}}">
+                                {% if store.logo != empty %}
+                                    <img src="{{store.logo}}" class="navbar-brand store-image" alt="{{store.name}}"/>
+                                {% else %}
+                                    {% if template == 'home' %}
+                                        <h1 class="navbar-brand">
+                                            <span class="text-logo">{{store.name}}</span>
+                                        </h1>
+                                    {% else %}
+                                        <span class="navbar-brand">{{store.name}}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-2">
+                            <!-- Cart c.riffo-->
+                                    <!--
+        <div class="cart float-right" {% if template == 'cart' %}class="active"{% endif %}>
+          <a href="{{order.url}}" class="nav-link" title="{% t 'View/Edit Cart' %}">
+            <i class="fa fa-shopping-cart"></i>
+            <div class="hidden-md-down">{% t 'Cart' %}</div> <span class="cart-size">{{order.products.size}}</span>
+          </a>
+        </div>
+-->
+                                  <!-- Login -->
+                            {% if store.customers_enabled %}
+                                <div class="login float-right hidden-md-down" {% if template == "customer_account" %} class="active" {% endif %}>
+                                    <a href="{% if customer %}{{customer_account_url}}{% else %}{{customer_login_url}}{% endif %}" id="login-link" class="trsn nav-link" title="{% if customer %}{% t "See my Details" %}{% else %}{% t "Login / Sign up" %}{{store.name}}{% endif %}">
+                                        <i class="fa fa-user fa-fw"></i>
+                                        <span class="customer-name">
+                                            {% if customer %}
+                                                {{ customer.name }}
+                                            {% else %}
+                                                {% t "Login / Sign up" %}
+                                            {% endif %}
+                                        </span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if customer %}
+                                <div class="cart float-right hidden-md-down">
+                                    <a title="{% t 'Logout' %}" href="{{customer.logout_url}}" class="nav-link hidden-md-down">
+                                        <i class="fa fa-sign-out"></i>
+                                        <span>{% t 'Logout' %}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav {% if options.fixed_header == "Menu" and options.fixed_header != "None" %} id="navbar" {% endif %} class="navbar-toggleable-md hidden-md-down {% if options.vertical-menu %}vertical_menu{% endif %}">
+                    <div class="{% if options.full-width-header %} container-fluid {% else %} container {% endif %}">
+                        <div class="collapse navbar-collapse" id="navbarsContainer">
+                            <ul class="navbar-nav mr-auto">
+                                {% for item in menu.main.items %}
+                                    {% include 'navigation_menu' with item %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Navigation Mobile -->
+                <div class="mobilenav hidden-lg-up trsn">
+                    <div class="menu-header">
+                        <div class="item item-1 trsn">
+                            <i class="fa fa-search fa-fw"></i>
+                            <form id="search_mini_form_mobile" class="navbar-form form-inline hidden-lg-up trsn" method="get" action="{{search.url_send}}">
+                                <input type="text" value="{{search.query}}" name="q" class="form-text" onfocus="javascript:this.value=''" placeholder="{% t 'Search for products' %}"/>
+                            </form>
+                        </div>
+                        {% if languages.size > 1 %}
+                            <div class="item item-2 trsn">
+                                {% for language in languages %}
+                                    {% if languages.first.code == language.code %}
+                                        <span>{{ language.code }}<i aria-hidden="true" class="fa fa-angle-down"></i>
+                                        </span>
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="lang-menu">
+                                    {% for language in languages %}
+                                        <a href="{{language.url}}" class="trsn" title="{{language.name}}">{{language.name}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if options.currencies != 0 %}
+                            <div class="item item-3 trsn">
+                                <span id="current_currency_mobile">{{store.currency_code}}</span>
+                                <i aria-hidden="true" class="fa fa-angle-down"></i>
+                                <div class="lang-menu">
+                                    <a href="#" onclick="Jumpseller.setCurrency('{{store.currency_code}}');" title="{{store.currency_code}}">{{store.currency_code}}</a>
+                                    {% assign store_currencies = options.currencies | split: ',' %}
+                                    {% for currency in store_currencies %}
+                                        <a href="#" onclick="Jumpseller.setCurrency('{{currency}}');" title="{{currency}}">{{currency}}</a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="nav-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="mobilenav-inner">
+                        <ul class="menu-mobile trsn">
+                            {% for item in menu.main.items %}
+                                {% include 'mobile_menu' with item %}
+                            {% endfor %}
+                            <li>
+                                {% if store.customers_enabled %}
+                                    <div class="login" {% if template == "customer_account" %} class="active" {% endif %}>
+                                        <a href="{% if customer %}{{customer_account_url}}{% else %}{{customer_login_url}}{% endif %}" id="login-link-2" class="trsn nav-link" title="{% if customer %}{% t "See my Details" %}{% else %}{% t "Login / Sign up" %}{{store.name}}{% endif %}">
+                                            <i class="fa fa-user fa-fw"></i>
+                                            <span class="customer-name">
+                                                {% if customer %}
+                                                    {{ customer.name }}
+                                                {% else %}
+                                                    {% t "Login / Sign up" %}
+                                                {% endif %}
+                                            </span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </li>
+                            <li>
+                                {% if customer %}
+                                    <div class="cart">
+                                        <a title="{% t 'Logout' %}" href="{{customer.logout_url}}" class="nav-link">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>{% t 'Logout' %}</span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </li>
+                            {% if social.facebook_url != blank %}
+                                <li class="social-item">
+                                    <a href="{{ social.facebook_url }}" class="trsn" title="{% t 'Go to' %} Facebook" target="_blank">
+                                        <i class="fa fa-facebook fa-fw"></i>Facebook
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% if social.twitter_url != blank %}
+                                <li class="social-item">
+                                    <a href="{{ social.twitter_url }}" class="trsn" title="{% t 'Go to' %} Twitter" target="_blank">
+                                        <i class="fa fa-twitter fa-fw"></i>Twitter
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% if social.pinterest_url != blank %}
+                                <li class="social-item">
+                                    <a href="{{ social.pinterest_url }}" class="trsn" title="{% t 'Go to' %} Pinterest" target="_blank">
+                                        <i class="fa fa-pinterest fa-fw"></i>Pinterest
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if social.instagram_url != blank %}
+                                <li class="social-item">
+                                    <a href="{{ social.instagram_url }}" class="trsn" title="{% t 'Go to' %} Instagram" target="_blank">
+                                        <i class="fa fa-instagram fa-fw"></i>Instagram
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if social.whatsapp_url != blank %}
+                                <li class="social-item">
+                                    <a href="{{ social.whatsapp_url }}&text={% t 'Hello'%}%20{{store.name}}" class="trsn" title="WhatsApp" target="_blank">
+                                        <i class="fa fa-whatsapp fa-fw"></i>WhatsApp
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-bg-opacity"></div>
+        {% endif %}
+        <!-- Page Content -->
+        {{content}}
+
+        <!-- Footer -->
+        {% if template == 'cart' or template == 'checkout' or template == 'revieworder' or template == 'success' %}
+
+            {% else %}
+                <div class="container">
+                    <footer class="pt-3 mb-4 mt-5">
+                        <div class="row">
+                            <div class="col-lg-4 col-12">
+                                <div class="row">
+                                    <div class="col-lg-10 col-12">
+                                        <a href="{{store.url}}" title="{{store.name}}">
+                                            {% if store.logo != empty %}
+                                                <img src="{{store.logo}}" class="navbar-brand store-image" alt="{{store.name}}"/>
+                                            {% else %}
+                                                {% if template == 'home' %}
+                                                    <span class="text-logo">{{store.name}}</span>
+                                                {% else %}
+                                                    <span class="navbar-brand">{{store.name}}</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </a>
+                                        {% if template == 'home' %}
+                                            <div class="footer-description">
+                                                {% if store.description != blank %}
+                                                    {{ store.description | strip_html }}
+                                                {% else %}
+                                                    {% t "Don't forget to add your store's description at Settings > General > Description" %}.
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <p class="footer-description">
+                                                {% if store.description != blank %}
+                                                    {{ store.description | strip_html }}
+                                                {% else %}
+                                                    {% t "Don't forget to add your store's description at Settings > General > Description" %}.
+                                                {% endif %}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-12">
+                                        <h5>{% t "Contact" %}</h5>
+                                        <ul>
+                                            {% if options.email != blank %}
+                                                <li>
+                                                    <a href="mailto:{{options.email}}" target="_blank" title="{{options.email}}">{{options.email}}</a>
+                                                </li>
+                                            {% endif %}
+                                            {% if options.phone != blank %}
+                                                <li class="footer-top__menu-item">
+                                                    <a href="tel:{{ options.phone | remove:'(' | remove:')' | remove:' ' }}" title="{% t "Call us" %}">{{ options.phone }}</a>
+                                                </li>
+                                                <!-- end .footer-top__menu-item -->
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <h5>{% t "Menu" %}</h5>
+                                        <ul class="navbar-nav mr-auto">
+                                            {% for item in menu.footer.items %}
+                                                {% include 'footer_menu' with item %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% if social.facebook_url != blank or social.twitter_url != blank or social.pinterest_url != blank or social.instagram_url != blank or social.whatsapp_url != blank %}
+                                        <div class="col-md-4 col-12">
+                                            <h5>{% t "Follow Us" %}</h5>
+                                            <ul class="social-footer">
+                                                {% if social.facebook_url != blank %}
+                                                    <li>
+                                                        <a href="{{social.facebook_url}}" class="trsn" title="{% t 'Go to' %} Facebook" target="_blank">
+                                                            <span class="hidden-sm-down">Facebook</span>
+                                                            <i class="fa fa-facebook fa-fw hidden-md-up"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+
+                                                {% if social.twitter_url != blank %}
+                                                    <li>
+                                                        <a href="{{social.twitter_url}}" class="trsn" title="{% t 'Go to' %} Twitter" target="_blank">
+                                                            <span class="hidden-sm-down">Twitter</span>
+                                                            <i class="fa fa-twitter fa-fw hidden-md-up"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+
+                                                {% if social.pinterest_url != blank %}
+                                                    <li>
+                                                        <a href="{{social.pinterest_url}}" class="trsn" title="{% t 'Go to' %} Pinterest" target="_blank">
+                                                            <span class="hidden-sm-down">Pinterest</span>
+                                                            <i class="fa fa-pinterest fa-fw hidden-md-up"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if social.instagram_url != blank %}
+                                                    <li>
+                                                        <a href="{{social.instagram_url}}" class="trsn" title="{% t 'Go to' %} Instagram" target="_blank">
+                                                            <span class="hidden-sm-down">Instagram</span>
+                                                            <i class="fa fa-instagram fa-fw hidden-md-up"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if social.whatsapp_url != blank %}
+                                                    <li>
+                                                        <a href="{{ social.whatsapp_url }}&text={% t 'Hello'%} {{store.name}}!" class="trsn" title="WhatsApp" target="_blank">
+                                                            <span class="hidden-sm-down">Whatsapp</span>
+                                                            <i class="fa fa-whatsapp fa-fw hidden-md-up"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="col-md-4 col-12">
+                                            <h5>{% t "Social Networks" %}</h5>
+                                            <ul>
+                                                <li><ahref="{{store.url}}/admin/settings/general">{% t "Click here to add your social networks links" %}</a></li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-12 mt-4 pt-4 bt-1">
+                                <p class="powerd-by">&copy;
+                                    {{ 'now' | date: "%Y" }}
+                                    {{store.name}}.
+                                    {% t "All Rights Reserved." %}
+                                    {{powered_by}}</p>
+                            </div>
+                        </div>
+                    </footer>
+
+                </div>
+        {% endif %}
+        <!-- /.container -->
+
+        {% if options.currencies != empty and options.open_exchange_rates_token != empty %}
+            <script src="//cdnjs.cloudflare.com/ajax/libs/money.js/0.2.0/money.min.js" type="text/javascript"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                var open_exchange_rates_token = "{{ options.open_exchange_rates_token }}";
+                var i18n_decimal_mark = "{{ store.i18n_decimal_mark }}";
+
+                if (typeof(Storage) !== "undefined") {
+                    if (sessionStorage.getItem("global_currency") == null) {
+                        sessionStorage.setItem("global_currency", "{{ store.currency_code }}");
+                        sessionStorage.setItem("store_currency", "{{ store.currency_code }}");
+                    }
+                } else { // Sorry! No Web Storage support..
+                    console.log("Unable to use multi-currency on this store. Please update your browser.");
+                    $("#current_currency").parents("li").hide();
+                }
+            </script>
+        {% endif %}
+        <script type="text/javascript" src="{{ 'main.js' | asset }}"></script>
+    </body>
+</html>

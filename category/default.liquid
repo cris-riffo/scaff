@@ -1,0 +1,132 @@
+<!-- Sort Filter -->
+<script>
+    $('.dropdown-filter').click(function(){
+      $(this).toggleClass('show');
+    });
+  </script>
+<div class="container produst-list">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-12 mt-5 page-header-content">
+            <h1 class="page-header">{{category.name}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        {% if category.images.first != blank %}
+            <div class="col-12">
+
+                <div class="category-image-container"><img src="{{category.images.first | resize: '1140x760'}}" alt="{{category.name}}"></div>
+            </div>
+        {% endif %}
+        {% if category.description != blank %}
+            <div class="col-12 category-description">
+                <p>{{category.description | newline_to_br}}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if category.products.size == 0 %}
+        <section class="col-md-6 offset-md-3 col-12 text-center">
+            <div class="well">
+                <h2>{% t "There aren't any products available in this category" %}.</h2>
+                <p>{% t "Try searching" %}
+                    {% t "again or keep shopping by clicking on the button below" %}</p>
+            </div>
+            <div class="text-center page-actions">
+                <a href="{{store.url}}" class="trsn butn" title="&larr; {% t 'Go back & Keep Shopping' %}">&larr;
+                    {% t "Go back & Keep Shopping" %}</a>
+            </div>
+        </section>
+
+    {% else %}
+
+        {% paginate category.products by options.products_category_limit %}
+            <div class="row bb-1 justify-content-between">
+                <div class="col-md-6 col-12 product-qty">
+                    <span>
+                        <strong>{{paged.total}}
+                            {% t "Product(s)" %}</strong>
+                    </span>
+                </div>
+
+
+                <div class="col-md-3 col-12">
+                    <div class="dropdown dropdown-filter">
+                        <div aria-expanded="false" aria-haspopup="true" class="dropdown-filter-label" data-toggle="dropdown" id="dropdownMenuButton" role="button">
+                            <label>{% t "Sort products" %}</label>
+                            <span class="plus-icon"></span>
+                        </div>
+                        <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+                            <a href="{{category.url}}/position/asc#category-gallery" class="trsn first" title="{% t "Position" %}">{% t "Position" %}</a>
+                            <a href="{{category.url}}/name/asc#category-gallery" class="trsn" title="{% t "Name: A to Z" %}">{% t "Name: A to Z" %}</a>
+                            <a href="{{category.url}}/name/desc#category-gallery" class="trsn" title="{% t "Name: Z to A" %}">{% t "Name: Z to A" %}</a>
+                            <a href="{{category.url}}/price/asc#category-gallery" class="trsn" title="{% t "Price: Low to High" %}">{% t "Price: Low to High" %}</a>
+                            <a href="{{category.url}}/price/desc#category-gallery" class="trsn" title="{% t "Price: High to Low" %}">{% t "Price: High to Low" %}</a>
+                            <a href="{{category.url}}/date/desc#category-gallery" class="trsn" title="{% t "Date: Newest First" %}">{% t "Date: Newest First" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row nogutter">
+                {% for product in paged.products %}
+                    <div class="col-md-3 col-6">
+                        <div class="main-category-image">
+
+                            {% include 'list_product' with product %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="row nogutter">
+                <div class="col-12">
+                    {% if paged.total_pages > 1 %}
+                        <!-- Pagination -->
+                        <div class="category-pager">
+                            {% if paged.current_page == 1 %}
+                                <a class="square-button disabled">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                                <div class="count">
+                                    <span>{{ paged.current_page }}</span>
+                                    <span>{% t "of" %}</span>
+                                    <span>{{ paged.total_pages }}</span>
+                                </div>
+                                <a href="{{ paged.next_url }}" class="square-button">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            {% elsif paged.current_page == paged.total_pages %}
+                                <a href="{{ paged.previous_url }}" class="square-button">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                                <div class="count">
+                                    <span>{{ paged.current_page }}</span>
+                                    <span>{% t "of" %}</span>
+                                    <span>{{ paged.total_pages }}</span>
+                                </div>
+                                <a class="square-button disabled">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            {% else %}
+                                <a href="{{ paged.previous_url }}" class="square-button">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                                <div class="count">
+                                    <span>{{ paged.current_page }}</span>
+                                    <span>{% t "of" %}</span>
+                                    <span>{{ paged.total_pages }}</span>
+                                </div>
+                                <a href="{{ paged.next_url }}" class="square-button">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endpaginate %}
+    {% endif %}
+</div> 

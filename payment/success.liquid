@@ -1,0 +1,197 @@
+<div class="container success-page cart pt-5">
+    <!-- Page Heading -->
+    <div class="row">
+      <div class="col-12">
+        <div class="cart-header">
+          <a href="{{store.url}}" title="{{store.name}}" class="logo">
+            {% if store.logo != empty %}
+            <img src="{{store.logo}}" class="store-image" alt="{{store.name}}" />
+            {% else %}
+            {% if template == 'home' %}
+            <div class="navbar-brand"><span class="text-logo">{{store.name}}</span></div>
+            {% else %}
+            <span class="navbar-brand">{{store.name}}</span>
+            {% endif %}
+            {% endif %}
+          </a>
+          <div class="cart-steps">
+            <div>{% t "Cart" %}</div>
+            <span class="bullet"><img src="{{ 'bullet.png' | asset }}"></span>
+            <div>{% t "Checkout" %}</div>
+            <span class="bullet"><img src="{{ 'bullet.png' | asset }}"></span>
+            <div>{% t "Order review" %}</div>
+            <span class="bullet"><img src="{{ 'bullet.png' | asset }}"></span>
+            <div class="active">{% t "Success" %}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 text-center"><h1>{% t "Thank you for buying in" %} {{store.name}}</h1></div>
+      <div class="col-md-6 offset-md-3 col-12">
+        <div class="col-12">
+          <div class="cart-block mb-3">
+            <h5>{% t "This is your order number" %}: <strong>#{{order.id}}</strong></h5>
+            <div class="cart-block-inside">
+              <p>{% t "An email with your order summary has been sent to" %}: <strong>{{order.email}}</strong></p>
+              <div class="row">
+                {% if order.shipping_required %}
+                <div class="col-sm-6 col-12">
+                  <h5><strong>{% t "Order will be Shipped to" %}:</strong></h5>
+                  <p>{{order.shipping_address.formatted}}</p>
+                </div>
+                {% endif %}
+                {% if order.payment_information != empty %}
+                <div class="col-sm-6 col-12">
+                  <h5><strong>{% t "Information for Payment" %}:</strong></h5>
+                  <p>{{ order.payment_method }}<br/>{{ order.payment_information | newline_to_br }}</p>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="send-to-messenger" class="fb-send-to-messenger" data-ref={{order.id}}></div>
+        <div class=" col-12 mb-3 mt-3">
+        <a href="{{store.url}}" class="butn" title="&larr; {% t 'Go back & Keep Shopping' %}">{% t "Go back & Keep Shopping" %}</a>
+        </div>
+        {% if options.success_page_product_table %}
+        <!-- Review Order Table -->
+  
+        <div class="col-md-6 offset-md-3 col-12">
+          <div class="row">
+            <form id="cart-update-form" method="post" action="{{order.update_url}}">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>{% t "Product" %}</th>
+                      <th class="hidden-xs-down"></th>
+                      <th class="hidden-xs-down">{% t "Unit Price" %}</th>
+                      <th>{% t "Qty" %}</th>
+                      <th>{% t "Subtotal" %}</th>
+                    </tr>
+                  </thead>
+                  {% for product in order.products %}
+                  <tr>
+                    <td>
+                      {% if product.options.size > 0 %}
+                      <h3>{{product.name}}</h3>
+                      {% for option in product.options %}
+                      <small>{{option.name}}: {{option.value}}</small><br>
+                      {% endfor %}
+                      {% else %}
+                      <h3>
+                        {{product.name}}
+                      </h3>
+                      {% endif %}
+                    </td>
+                    <td class="text-center hidden-xs-down">
+                      {% if product.images.size > 0 %}
+                      <img src="{{ product.images.first | resize: '120x100'}}" alt="{{product.name}}" title="{{product.name}}">
+                      {% else %}
+                      <span><i class="fa fa-picture-o fa-5x"></i></span>
+                      {% endif %}
+                    </td>
+                    <td class="hidden-xs-down">
+                      {% if product.discount > 0 %}
+                      <div class="cart-product-discount">
+                        <span>
+                          {{ product.price | minus:product.discount | price }}
+                          <br>
+                          <small>({{ product.price | price }})</small>
+                        </span>
+                      </div>
+                      {% else %}
+                      <span class="order-product-price">{{ product.price | price }}</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <span>{{product.qty}}</span>
+                    </td>
+                    <td>
+                      <span class="order-product-subtotal">{{ product.discount | times: product.qty | times: '-1' | plus: product.subtotal | price }}</span>
+                    </td>
+  
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+  
+        <div class="col-md-6 offset-md-3 col-12">
+          <div id="review-cart-totals" class="cart-totals">
+            <h5 class="legend">{% t "Summary" %}</h5>
+            <table class="table table-striped">
+              {% if order.subtotal != order.total %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Subtotal" %}</td>
+                <td colspan="1" class="text-right">{{order.subtotal | price }}</td>
+              </tr>
+              {% endif %}
+  
+              {% if order.shipping_required %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Shipping" %}</td>
+                <td colspan="1" class="text-right">{{order.shipping | price }}</td>
+              </tr>
+              {% endif %}
+  
+              {% if order.tax > 0 %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Tax" %}</td>
+                <td colspan="1" class="text-right">{{order.tax | price }}</td>
+              </tr>
+              {% endif %}
+  
+              {% if order.discount > 0 %}
+              <tr class="totals">
+                <td colspan="1" class="text-left">{% t "Discount" %}</td>
+                <td colspan="1" class="text-right">-{{order.discount | price }}</td>
+              </tr>
+              {% endif %}
+  
+              <tr class="totals key">
+                <td colspan="1" class="text-left">
+                  <strong>{% t "Total" %}</strong>
+                </td>
+                <td colspan="1" class="text-right">
+                  <strong>{{order.total | price }}</strong>
+                </td>
+              </tr>
+  
+            </table>
+          </div>
+        </div>
+  
+  
+        <div class="col-md-6 offset-md-3 col-12">
+          <div class="cart-block mb-3">
+            {% t "Bought in:" %} <b>{{store.name}}</b> - <b>{{store.url}}</b>
+            <div class="cart-block-inside">{% t "If you have any question or special requirement about reimbursements or shipping please contact us at the email:" %} <b><a href="mailto:{{ store.email }}">{{ store.email }}</a></b>.</div>
+          </div>
+        </div>
+        {% endif %}
+  
+  
+        {% if customer == nil and store.customers_enabled and store.customers_optional %}
+        <div class="col-12">
+          <div class="cart-block mb-3">
+            <h2 class="text-center">{% t "Create your Customer Account" %}</h2>
+            <div class="cart-block-inside">
+              {{ customer_reset_password_form }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+  
+  
+      <!-- /.row -->
+    </div>
+  
+    <script>
+      $(document).ready(function(){
+        $('form#create_password #submit_password').val("{% t 'Create Password' %}");
+      });
+    </script> 

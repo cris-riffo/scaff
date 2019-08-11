@@ -1,0 +1,125 @@
+<!-- Carousel Section-->
+{% include 'carousel_home' with product %}
+
+<div class="container">
+
+  <!-- Banners Section -->
+  {% include 'banners_home' with product %}
+
+  {% if products.featured.size > 0 %}
+  <!-- Featured Products Section -->
+  <div class="row pt-5 pb-5 bb-1 nogutter">
+    <div class="col-12 page-header-content">
+      <h2 class="page-header">{% t 'Featured Products' %}</h2>
+    </div>
+
+    {% if products.all.size == 0 %}
+    {% assign placeholders = "1,2,3,4" | split: "," %}
+    {% for placeholder in placeholders %}
+    <div class="col-md-3 col-6 no-product">
+      <img class="img-fluid img-portfolio img-hover" src="{{ 'no-image-home.png' | asset }}"
+        alt="{% t 'Add your products' %}">
+      <div class="caption">
+        <h4><a href="{{store.url}}/admin/products/new" class="butn">{% t 'Add products' %}</a></h4>
+        <h4>$0.00</h4>
+      </div>
+    </div>
+    {% endfor %}
+    {%else%}
+    <!-- Latest Products -->
+    <!-- Latest Products -->
+    <!--Aqui va la logica de ultimos productos-->
+    <!-- Featured Products -->
+    {% for product in products.featured limit:options.products_featured_limit %}
+    <div class="col-md-3 col-6">
+      {% include 'list_product' with product %}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!-- Featured Products -->
+
+    {% endif %}
+  </div>
+  <!-- Blog Home -->
+  {% if options.home_page_blog and pages.categories.category["Post"] != blank %}
+  <div id="blog-list" class="row pt-5 pb-5 trsn nogutter">
+    <div class="col-12 page-header-content">
+      <h2 class="page-header">{% t 'Blog' %}</h2>
+    </div>
+    {% paginate pages.categories.category["Post"].pages by options.page_post_per_page reversed %}
+    {% for page in paged.pages reversed %}
+    {% if forloop.index0 == 3 %}{% break %}{% endif %}
+    <div class="col-md-4 col-12">
+      <a href="{{ page.url }}" title="{{ page.title }}">
+        {% if page.images.size == 0 %}
+        <img class="img-fluid" src="https://placehold.it/360x240" alt="{{ page.title }}">
+        {% else %}
+        <img class="img-fluid" src="{{ page.images.first | resize: '360x240' }}" alt="{{ page.title }}" />
+        {% endif %}
+        <h3>{{ page.title }}</h3>
+      </a>
+    </div>
+    {% endfor %}
+    <div class="col-12">
+      <a href="blog" title="Blog" class="butn trsn mt-5">{% t 'Go to Blog' %}</a>
+      {% endpaginate %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!-- Instagram widget -->
+{% if options.instafeed and options.instagram-username != blank %}
+<!-- Instagram widget -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 page-header-content">
+      <h2 class="page-header">{% t 'Instagram' %}</h2>
+    </div>
+    <div id="instagram" class="col-12 limit-{{ options.instagram-limit }}">{% t 'Instagram' %}</div>
+    <a href="https://www.instagram.com/{{ options.instagram-username }}" target="_blank"
+      title="{% t 'Follow Us' %} @{{ options.instagram-username }}" class="butn trsn mt-5"><i class="fa fa-instagram"
+        aria-hidden="true"></i> {% t 'Follow Us' %}</a>
+  </div>
+</div>
+
+<!-- Instagram code -->
+<script>
+  $.ajax({
+    url: "https://js-instagram-proxy.herokuapp.com/{{ options.instagram-username }}/media",
+    dataType: "jsonp",
+    data: {
+      count: {{ options.instagram - limit }}
+  },
+    success: function (json) {
+      for (var i in json.posts) {
+        if (i >= {{ options.instagram - limit }
+      }){ continue };
+  url = json.posts[i].display_url;  
+  shortcode = json.posts[i].shortcode;
+
+  newElement = document.createElement('div');
+  newElement.className = 'insta_img';
+  newElement.style = 'background-image: url(' + url + ')';
+
+  newElementLink = document.createElement('a');
+  newElementLink.href = "https://www.instagram.com/p/" + shortcode;
+  newElementLink.appendChild(newElement);
+
+  var clientHeight = document.getElementById('instagram').clientHeight;
+  document.getElementById("instagram").appendChild(newElementLink);
+    }
+  }
+  });
+</script>
+{% endif %}
+<script>
+  function parse_str(str) {
+    return str.split('&').reduce(function (params, param) {
+      var paramSplit = param.split('=').map(function (value) {
+        return decodeURIComponent(value.replace('+', ' '));
+      });
+      params[paramSplit[0]] = paramSplit[1];
+      return params;
+    }, {});
+  }
+</script>

@@ -1,0 +1,78 @@
+<!-- Page Content -->
+<div class="container blog">
+    <div class="row">
+        <div class="col-12 mt-5 page-header-content">
+            <h1 class="page-header">{{page.title}}</h1>
+        </div>
+        <!-- Blog Entries Column -->
+        <div class="col-12 trsn" id="blog-list">
+            <div class="row">
+                {% unless pages.categories.category["Post"] == blank %}
+                    {% paginate pages.categories.category["Post"].pages by options.page_post_per_page %}
+                        {% for page in paged.pages reversed %}
+                            <div class="col-md-4 col-12">
+                                <a href="{{ page.url }}" title="{{ page.title }}">
+                                    {% if page.images.size == 0 %}
+                                        <img class="img-fluid" src="http://placehold.it/360x240" alt="{{ page.title }}">
+                                    {% else %}
+                                        <img class="img-fluid" src="{{ page.images.first | resize: '360x240' }}" alt="{{ page.title }}"/>
+                                    {% endif %}
+                                    <h3>{{ page.title }}</h3>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <div class="clearfix"></div>
+                        <div class="col-12">
+                            {% if paged.total_pages > 1 %}
+                                <!-- Pagination -->
+                                <div class="category-pager">
+                                    {% if paged.current_page == 1 %}
+                                        <a class="square-button disabled">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                        <div class="count">
+                                            <span>{{ paged.current_page }}</span>
+                                            <span>{% t "of" %}</span>
+                                            <span>{{ paged.total_pages }}</span>
+                                        </div>
+                                        <a href="{{ paged.next_url }}" class="square-button">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    {% elsif paged.current_page == paged.total_pages %}
+                                        <a href="{{ paged.previous_url }}" class="square-button">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                        <div class="count">
+                                            <span>{{ paged.current_page }}</span>
+                                            <span>{% t "of" %}</span>
+                                            <span>{{ paged.total_pages }}</span>
+                                        </div>
+                                        <a class="square-button disabled">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ paged.previous_url }}" class="square-button">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                        <div class="count">
+                                            <span>{{ paged.current_page }}</span>
+                                            <span>{% t "of" %}</span>
+                                            <span>{{ paged.total_pages }}</span>
+                                        </div>
+                                        <a href="{{ paged.next_url }}" class="square-button">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    {% endpaginate %}
+                {% endunless %}
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container --> 

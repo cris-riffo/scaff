@@ -1,0 +1,51 @@
+{% if options.home_page_banners %}
+    <div class="row pt-5 pb-5 bb-1 trsn nogutter" id="banners">
+        {% if options.banner-1 == empty %}
+            <div class="col-md-3 col-6 no-banner">
+                <a href="{{store.url}}/admin/themes/options#/BannersHome" title="{% t 'Add your banners' %}"><img src="https://placehold.it/300x300" alt="{% t 'Add your banners' %}"><h3>{% t 'Add your banners' %}</h3>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-md-3 col-6">
+                <a href="{{ options.link-banner-1 }}" title="{{ options.title-banner-1 }}"><img src="{{ options.banner-1 }}" alt="{{ options.title-banner-1 }}"><h3>{{ options.title-banner-1 }}</h3>
+                </a>
+            </div>
+        {% endif %}
+
+        {% if options.banner-2 == empty %}
+            <div class="col-md-3 col-6 no-banner">
+                <a href="{{store.url}}/admin/themes/options#/BannersHome" title="{% t 'Add your banners' %}"><img src="https://placehold.it/300x300" alt="{% t 'Add your banners' %}"><h3>{% t 'Add your banners' %}</h3>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-md-3 col-6">
+                <a href="{{ options.link-banner-2 }}" title="{{ options.title-banner-2 }}"><img src="{{ options.banner-2 }}" alt="{{ options.title-banner-2 }}"><h3>{{ options.title-banner-2 }}</h3>
+                </a>
+            </div>
+        {% endif %}
+
+        {% if options.banner-3 == empty %}
+            <div class="col-md-3 col-6 no-banner">
+                <a href="{{store.url}}/admin/themes/options#/BannersHome" title="{% t 'Add your banners' %}"><img src="https://placehold.it/300x300" alt="{% t 'Add your banners' %}"><h3>{% t 'Add your banners' %}</h3>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-md-3 col-6">
+                <a href="{{ options.link-banner-3 }}" title="{{ options.title-banner-3 }}"><img src="{{ options.banner-3 }}" alt="{{ options.title-banner-3 }}"><h3>{{ options.title-banner-3 }}</h3>
+                </a>
+            </div>
+        {% endif %}
+
+        {% if options.banner-4 == empty %}
+            <div class="col-md-3 col-6 no-banner">
+                <a href="{{store.url}}/admin/themes/options#/BannersHome" title="{% t 'Add your banners' %}"><img src="https://placehold.it/300x300" alt="{% t 'Add your banners' %}"><h3>{% t 'Add your banners' %}</h3>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-md-3 col-6">
+                <a href="{{ options.link-banner-4 }}" title="{{ options.title-banner-4 }}"><img src="{{ options.banner-4 }}" alt="{{ options.title-banner-4 }}"><h3>{{ options.title-banner-4 }}</h3>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

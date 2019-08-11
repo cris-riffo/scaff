@@ -1,0 +1,90 @@
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
+<script type="text/javascript">
+    WebFont.load({
+        google: {
+            families: ["{{ options.general_font }}", "{{ options.titles_font }}", "{{ options.store_name }}"]
+        }
+    });
+</script>
+
+<style>
+    type="text/css"
+    body,
+    footer .footer-description,
+    p,
+    input.butn,
+    h1.navbar-brand {
+        {% case options.general_font %}
+            {% when "Droid Serif" %}font-family: "Droid Serif", serif !important;
+            {% when "Gentium Basic" %}font-family: "Gentium Basic", serif !important;
+            {% when "Lato" %}font-family: "Lato", sans-serif !important;
+            {% when "Montserrat" %}font-family: "Montserrat", sans-serif !important;
+            {% when "Noto Sans" %}font-family: "Noto Sans", sans-serif !important;
+            {% when "Open Sans" %}font-family: "Open Sans", sans-serif !important;
+            {% when "Playfair Display" %}font-family: "Playfair Display", serif !important;
+            {% when "Quicksand" %}font-family: "Quicksand", sans-serif !important;
+            {% when "Raleway" %}font-family: "Raleway", sans-serif !important;
+            {% when "Roboto" %}font-family: "Roboto", sans-serif !important;
+            {% when "Roboto Slab" %}font-family: "Roboto Slab", serif !important;
+            {% when "Roboto Condensed" %}font-family: "Roboto Condensed", serif !important;
+        {% endcase %}
+
+    }
+
+    h1,
+    h2 {
+        {% case options.titles_font %}
+            {% when "Abril Fatface" %}font-family: "Abril Fatface", cursive !important;
+            {% when "Architects Daughter" %}font-family: "Architects Daughter", cursive !important;
+            {% when "Fredericka the Great" %}font-family: "Fredericka the Great", cursive !important;
+            {% when "Glegoo" %}font-family: "Glegoo", serif !important;
+            {% when "Handlee" %}font-family: "Handlee", cursive !important;
+            {% when "Josefin Slab" %}font-family: "Josefin Slab", serif !important;
+            {% when "Julius Sans One" %}font-family: "Julius Sans One", sans-serif !important;
+            {% when "Lato" %}font-family: "Lato", sans-serif !important;
+            {% when "Libre Baskerville" %}font-family: "Libre Baskerville", serif !important;
+            {% when "Montserrat" %}font-family: "Montserrat", sans-serif !important;
+            {% when "Open Sans" %}font-family: "Open Sans", sans-serif !important;
+            {% when "Philosopher" %}font-family: "Philosopher", sans-serif !important;
+            {% when "Poiret One" %}font-family: "Poiret One", cursive !important;
+            {% when "Roboto" %}font-family: "Roboto", sans-serif !important;
+            {% when "Special Elite" %}font-family: "Special Elite", cursive !important;
+        {% endcase %}
+    }
+
+    .navbar-brand,
+    .text-logo {
+        {% case options.store_name %}
+            {% when "Abril Fatface" %}font-family: "Abril Fatface", cursive !important;
+            {% when "Architects Daughter" %}font-family: "Architects Daughter", cursive !important;
+            {% when "Fredericka the Great" %}font-family: "Fredericka the Great", cursive !important;
+            {% when "Libre Baskerville" %}font-family: "Libre Baskerville", serif !important;
+            {% when "Playfair Display" %}font-family: "Playfair Display", serif;
+            {% when "Poiret One" %}font-family: "Poiret One", cursive !important;
+            {% when "Raleway" %}font-family: "Raleway", sans-serif !important;
+            {% when "Roboto" %}font-family: "Roboto", sans-serif !important;
+            {% when "Old Standard TT" %}font-family: "Old Standard TT", serif !important;
+            {% when "Yatra One" %}font-family: "Yatra One", cursive !important;
+        {% endcase %}
+    }
+
+    p,
+    .caption h4,
+    label,
+    table,
+    .panel {
+        font-size: {{options.general_font_size}}!important;
+    }
+
+    h2 {
+        font-size: {{options.title_font_size}}!important;
+    }
+    .navbar-brand,
+    .text-logo {
+        font-size: {{options.store_name_font_size}}!important;
+    }
+    .navbar-toggleable-md .navbar-collapse li a {
+        font-size: {{options.menu_font_size}}!important;
+    }
+</style>
