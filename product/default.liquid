@@ -12,15 +12,23 @@
                 <h2 class="product-name">{{product.name}}</h2>
             </div>
 
-            <!-- precio del producto c.riffo--> 
-                                                      <!--  <div class="price_elem row hidden-md-up">
-          <div class="col-sm-8 col-md-9">
-            <span class="product-form-price-2 form-price" id="product-form-price">{{product.price | minus:product.discount | price}}</span>
-            {% if product.discount > 0 %}
-            <span class="product-form-discount-2" id="product-form-discount">( {{product.price | price}} )</span>
+            <!-- precio del producto c.riffo-->
+
+            {% if product.name == "Prueba" %}
+                <div class="price_elem row hidden-md-up">
+                    <div class="col-sm-8 col-md-9">
+                        <span class="product-form-price-2 form-price" id="product-form-price">{{product.price | minus:product.discount | price}}</span>
+                        {% if product.discount > 0 %}
+                            <span class="product-form-discount-2" id="product-form-discount">(
+                                {{product.price | price}}
+                                )</span>
+                        {% endif %}
+                    </div>
+                </div>
+
             {% endif %}
-          </div
-        </div>>-->
+
+
             {% if product.images.size == 0 %}
                 <!-- There's no image available -->
                 <div class="text-center">
@@ -85,14 +93,18 @@
                     </div>
                     <div class="col-12">
                         <!-- Product Price c.riffo  -->
-                                                                                                               <!-- <div class="form-group price_elem row hidden-sm-down">
-                  <div class="col-12">
-                    <span class="product-form-price form-price" id="product-form-price-2">{{product.price | minus:product.discount | price}}</span>
-                    {% if product.discount > 0 %}
-                    <span class="product-form-discount" id="product-form-discount">( {{product.price | price}} )</span>
-                    {% endif %}
-                  </div>
-                </div>-->
+                        {% if product.name == "Prueba" %}
+                            <div class="form-group price_elem row hidden-sm-down">
+                                <div class="col-12">
+                                    <span class="product-form-price form-price" id="product-form-price-2">{{product.price | minus:product.discount | price}}</span>
+                                    {% if product.discount > 0 %}
+                                        <span class="product-form-discount" id="product-form-discount">(
+                                            {{product.price | price}}
+                                            )</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
                         <div class="form-group row description">
                             <div class="col-12">
                                 <label class="form-control-label">{% t "Description" %}</label>
@@ -194,20 +206,25 @@
                     </div>
 
 
-                    <!-- Anladir al carro c.riffo -->
-                                                                                            <!--    <div class="form-group product-stock product-available row no-gutters {% if product.stock > 0 and product.status == 'available' %}visible{% elsif product.stock_unlimited and product.status == 'available' %}visible{% else %} hidden{% endif %}">
-  
-                  <div class="col-4">
-                    {% capture maxStock  %} max= "{{ product.stock }}" {% endcapture  %}
-                    <div class="quantity">
-                      <input type="number" class="qty form-control" id="input-qty" name="qty" value="1" {% if product.stock_unlimited != true %}{{maxStock}}{% endif %}>
-                    </div>
-                </div>
-                  <div class="col-8">
-                    <input type="submit" class="butn adc" value="{% t 'Add to Cart' %}" />
-                    <a href="{{store.url}}" class="continue mt-2" title="{% t 'Continue Shopping' %}">&larr; {% t 'Continue Shopping' %}</a>
-                  </div>
-                </div>-->
+                    <!-- Añadir al carro c.riffo -->
+                    {% if product.name == 'Prueba' %}
+                        <div class="form-group product-stock product-available row no-gutters {% if product.stock > 0 and product.status == 'available' %}visible{% elsif product.stock_unlimited and product.status == 'available' %}visible{% else %} hidden{% endif %}">
+
+                            <div class="col-4">
+                                {% capture maxStock  %}
+                                    max= "{{ product.stock }}"
+                                {% endcapture  %}
+                                <div class="quantity">
+                                    <input type="number" class="qty form-control" id="input-qty" name="qty" value="1" {% if product.stock_unlimited != true %} {{maxStock}} {% endif %}>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <input type="submit" class="butn adc" value="{% t 'Add to Cart' %}"/>
+                                <a href="{{store.url}}" class="continue mt-2" title="{% t 'Continue Shopping' %}">&larr;
+                                    {% t 'Continue Shopping' %}</a>
+                            </div>
+                        </div>
+                    {% endif  %}
 
                     {% if product.fields != empty %}
                         <div class="form-group row details">
